@@ -23,11 +23,15 @@ exports.register = async (req, res) => {
     const payload = {
       user: {
         id: newAccount._id,
+        email: newAccount.email
       },
     };
     jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
       if (err) throw err;
-      res.json({ msg : "inscription réussite" });
+      res.json({
+        msg: "inscription réussite",
+        user: payload.user
+      });
     });
   } catch (error) {
     console.error(error);
@@ -61,8 +65,8 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.getCurrentUser = async (req,res) =>{
-   User.findOne({_id:req.params.id},(err,data)=>{
-    if (err) {console.log(err)} else res.send(data)
+exports.getCurrentUser = async (req, res) => {
+  User.findOne({ _id: req.params.id }, (err, data) => {
+    if (err) { console.log(err) } else res.send(data)
   })
 }

@@ -12,18 +12,18 @@ import axios from "axios";
 
 import { history } from "../../history"
 export const register = (newUser) => async (dispatch) => {
-  dispatch({
+  await dispatch({
     type: REGISTER_USER,
   });
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const addRes = await axios.post("/user/register", newUser);
     await history.push('/login')
-     dispatch({
+    dispatch({
       type: REGISTER_SUCCESS,
-      payload: addRes,
+      payload: addRes.data,
     });
-        
+
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
@@ -36,14 +36,14 @@ export const login = (input) => async (dispatch) => {
     type: LOGIN_LOAD,
   });
   try {
-   
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const loginRes = await axios.post("/user/login", input);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: loginRes.data,
     });
-    localStorage.setItem('userId',loginRes.data.user.id)
+    localStorage.setItem('userId', loginRes.data.user.id)
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
@@ -61,5 +61,5 @@ export const logout = () => async (dispatch) => {
       type: LOGOUT_SUCCESS,
     });
     localStorage.removeItem("userId");
-  } catch (error) {}
+  } catch (error) { }
 };
