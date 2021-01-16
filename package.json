@@ -1,0 +1,16 @@
+{
+  "name": "outil",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Omar Ghamgui",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "redux-persist": "^6.0.0"
+  },
+  "scripts": {
+    "server": "cd backend && yarn dev",
+    "client": "cd client && yarn start",
+    "start": "concurrently \"yarn client\" \"yarn server\""
+  }
+}

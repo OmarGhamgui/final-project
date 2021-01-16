@@ -1,0 +1,30 @@
+.corps{
+    background-color:#BAC1B8;
+    font-size:16px;
+    padding-top:100px
+}
+
+.header1 > h1{
+    font-size: 24px;
+    display:flex;
+    justify-content: center;
+    margin:20px auto
+}
+.btn-newbtn {
+    color: #fff;
+    background-color: #6e6e6e;
+    border-color: #6e6e6e;
+  }
+  .btn-newbtn:hover {
+    color: #fff;
+    background-color: #c9b89c;
+    border-color: #c9b89c;
+  }
+  .btn-newbtn.focus,
+  .btn-newbtn:focus {
+    color: #fff;
+    background-color: #6e6658;
+    border-color: #6e6658;
+    box-shadow: 0 0 0 0.2rem rgba(61, 48, 49, 0.5);
+  }
+  
