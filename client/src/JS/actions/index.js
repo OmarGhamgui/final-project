@@ -10,7 +10,7 @@ import {
 } from "../constants/actions-types";
 import axios from "axios";
 
-import { history } from "../../history"
+import { history } from "../../history";
 export const register = (newUser) => async (dispatch) => {
   await dispatch({
     type: REGISTER_USER,
@@ -18,12 +18,11 @@ export const register = (newUser) => async (dispatch) => {
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const addRes = await axios.post("/user/register", newUser);
-    await history.push('/login')
+    await history.push("/login");
     dispatch({
       type: REGISTER_SUCCESS,
       payload: addRes.data,
     });
-
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
@@ -36,14 +35,15 @@ export const login = (input) => async (dispatch) => {
     type: LOGIN_LOAD,
   });
   try {
-
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const loginRes = await axios.post("/user/login", input);
+  localStorage.setItem("auth-token", loginRes.data.token);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: loginRes.data,
-    });
-    localStorage.setItem('userId', loginRes.data.user.id)
+    });    
+
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
@@ -60,6 +60,6 @@ export const logout = () => async (dispatch) => {
     dispatch({
       type: LOGOUT_SUCCESS,
     });
-    localStorage.removeItem("userId");
-  } catch (error) { }
+    localStorage.removeItem("auth-token");
+  } catch (error) {}
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Components/Homepage.css";
-import Cardservice from "../Components/Cardservice";
+import Cardservice from "./Cardservice";
 import {Link, Redirect} from 'react-router-dom'
 import { useSelector } from "react-redux";
 const Homepage = () => {

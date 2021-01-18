@@ -15,27 +15,27 @@ const Footer = () => {
 
           </p>
           <ul class="list-inline mt-4">
-            <li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="vimeo"><i class="fa fa-vimeo"></i></a></li>
+            <li class="list-inline-item"><a href="/" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="/" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="/" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="/" target="_blank" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
+            <li class="list-inline-item"><a href="/" target="_blank" title="vimeo"><i class="fa fa-vimeo"></i></a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
           <ul class="list-unstyled mb-0">
-            <li class="mb-2"><a href="#" class="text-white">Certification</a></li>
-            <li class="mb-2"><a href="#" class="text-white">Comment ça marche ?</a></li>
-            <li class="mb-2"><a href="#" class="text-white">Combien ça coute ?</a></li>
-            <li class="mb-2"><a href="#" class="text-white">Aide</a></li>
+            <li class="mb-2"><a href="/" class="text-white">Certification</a></li>
+            <li class="mb-2"><a href="/" class="text-white">Comment ça marche ?</a></li>
+            <li class="mb-2"><a href="/" class="text-white">Combien ça coute ?</a></li>
+            <li class="mb-2"><a href="/" class="text-white">Aide</a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
           <ul class="list-unstyled mb-0">
-            <li class="mb-2"><a href="#" class="text-white"> Connexion</a></li>
-            <li class="mb-2"><a href="#" class="text-white">Blog</a></li>
-            <li class="mb-2"><a href="#" class="text-white"> Services</a></li>
-            <li class="mb-2"><a href="#" class="text-white">Mentions légales</a></li>
+            <li class="mb-2"><a href="/" class="text-white"> Connexion</a></li>
+            <li class="mb-2"><a href="/" class="text-white">Blog</a></li>
+            <li class="mb-2"><a href="/" class="text-white"> Services</a></li>
+            <li class="mb-2"><a href="/" class="text-white">Mentions légales</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-6 mb-lg-0">

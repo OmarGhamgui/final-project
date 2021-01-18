@@ -8,19 +8,34 @@ import {
   LOGOUT_LOAD,
   LOGOUT_SUCCESS,
 } from "../constants/actions-types";
-// import {useHistory} from 'react-router-dom'
 
 import cogoToast from "cogo-toast";
+import axios from "axios";
 
 const initialState = {
+  user: null,
   loading: false,
-  token :"",
-  user: {},
+  token: "",
   errors: null,
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
-
+  const checkLoggedIn = async () => {
+    let token = localStorage.getItem("auth-token");
+    if (token === null) {
+      localStorage.setItem("auth-token", "");
+      token = "";
+    }
+    const tokenRes = await axios.post("/user/tokenIsValid", null, {
+      headers: { "x-auth-token": token },
+    });
+    if (tokenRes.data) {
+      const userRes = await axios.get("/user", {
+        headers: { "x-auth-token": token },
+      });
+      if (userRes) return true;
+    }
+  };
   switch (type) {
     case REGISTER_USER:
       return {
@@ -28,7 +43,6 @@ const userReducer = (state = initialState, { type, payload }) => {
         loading: true,
       };
     case REGISTER_SUCCESS:
-
       cogoToast.success("Inscription réussite");
       return {
         ...state,
@@ -50,13 +64,14 @@ const userReducer = (state = initialState, { type, payload }) => {
         loading: true,
       };
     case LOGIN_SUCCESS:
-      // localStorage.setItem("token", payload.token);
+      if (checkLoggedIn());
       return {
         ...state,
-        token:payload.token,
         loading: false,
+        token: payload.token,
         user: payload.user,
       };
+
     case LOGIN_FAIL:
       cogoToast.error("Vérifier votre email ou mot de passe");
 
@@ -72,12 +87,11 @@ const userReducer = (state = initialState, { type, payload }) => {
         loading: true,
       };
     case LOGOUT_SUCCESS:
-      // localStorage.removeItem("token");
-      // localStorage.removeItem("userId");
       return {
         ...state,
-        token:'',
+        token: "",
         loading: false,
+        user: null,
       };
     default:
       return state;

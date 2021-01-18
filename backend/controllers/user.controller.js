@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
   try {
     const searchAccount = await User.findOne({ email }).select("-password");
     if (searchAccount)
-      return res.status(503).json({ msg: "account already exists" });
+      return res.status(403).json({ msg: "account already exists" });
     const newAccount = new User({
       name,
       email,
@@ -19,23 +19,15 @@ exports.register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     newAccount.password = hash;
-    await newAccount.save();
-    const payload = {
-      user: {
-        id: newAccount._id,
-        email: newAccount.email
-      },
-    };
-    jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
-      if (err) throw err;
-      res.json({
-        msg: "inscription réussite",
-        user: payload.user
-      });
+    const savedAccount = await newAccount.save();
+
+    res.json({
+      msg: "inscription réussite",
+      user: savedAccount
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ errors: error });
+    res.status(500).json({ errors: error.data });
   }
 };
 
@@ -50,23 +42,28 @@ exports.login = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
       },
     };
 
-    jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
-      if (err) throw err;
-      res.json({ token, user: payload.user });
-    });
+    jwt.sign(
+      { id: payload.user.id },
+      secretOrKey,
+      { expiresIn: 3600 },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token, user: payload.user });
+      }
+    );
   } catch (error) {
     console.error(error);
-    res.status(500).json({ errors: error });
+    res.status(500).json({ errors: error.data });
   }
 };
 
 exports.getCurrentUser = async (req, res) => {
-  User.findOne({ _id: req.params.id }, (err, data) => {
-    if (err) { console.log(err) } else res.send(data)
-  })
-}
+  User.findOne({ _id: req.params.userId }, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else res.send(data);
+  });
+};

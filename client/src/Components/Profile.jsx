@@ -1,18 +1,51 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router";
+import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 const Profile = () => {
-const [userData, setUserData] = useState({})
-  useEffect(() => {
- axios.get('/user/profile/'+localStorage.getItem('userId')).then(res=>setUserData(res.data))
-    
-  },[])
+  const isAuth = useSelector((state) => state.userReducer.token);
+  const userData = useSelector((state) => state.userReducer.user);
 
   return (
-    <div style={{ height: "700px" }}>
-      <h1 style={{ marginTop: "300px" }}> WELCOME {userData.name}  </h1>
-      <h2 >email : {userData.email} </h2>
-      <h2>phoneNumber : {userData.phoneNumber} </h2>
-    </div>
+    <>
+      {!isAuth ? (
+        <Redirect to="/" />
+      ) : (
+        <div style={{ height: "700px", backgroundColor: "#88BDBC" }}>
+          <SideNav className="side">
+            <SideNav.Toggle />
+            <SideNav.Nav defaultSelected="home">
+              <NavItem eventKey="home">
+                <NavIcon>
+                  <i
+                    className="fa fa-fw fa-home"
+                    style={{ fontSize: "1.75em" }}
+                  />
+                </NavIcon>
+                <NavText>Home</NavText>
+              </NavItem>
+              <NavItem eventKey="charts">
+                <NavIcon>
+                  <i
+                    className="fa fa-fw fa-line-chart"
+                    style={{ fontSize: "1.75em" }}
+                  />
+                </NavIcon>
+                <NavText>Charts</NavText>
+                <NavItem eventKey="charts/linechart">
+                  <NavText>Line Chart</NavText>
+                </NavItem>
+                <NavItem eventKey="charts/barchart">
+                  <NavText>Bar Chart</NavText>
+                </NavItem>
+              </NavItem>
+            </SideNav.Nav>
+          </SideNav>
+          <h1 style={{ paddingTop: "300px" }}>WELCOME {userData.name}</h1>
+        </div>
+      )}
+    </>
   );
 };
 
