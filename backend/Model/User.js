@@ -8,4 +8,4 @@ const userSchema = mongoose.Schema({
   phoneNumber: String,
 });
 
-module.exports = User = mongoose.model('User',userSchema)
+module.exports = User = mongoose.model('User',userSchema);

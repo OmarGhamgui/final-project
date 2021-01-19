@@ -37,13 +37,13 @@ export const login = (input) => async (dispatch) => {
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const loginRes = await axios.post("/user/login", input);
-  localStorage.setItem("auth-token", loginRes.data.token);
-
+    console.log("aaaaaaaaa", loginRes);
+    /*  localStorage.setItem("auth-token", loginRes.data.token); */ 
+    
     dispatch({
       type: LOGIN_SUCCESS,
       payload: loginRes.data,
-    });    
-
+    });
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,

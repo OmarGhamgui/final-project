@@ -20,10 +20,9 @@ exports.register = async (req, res) => {
     const hash = await bcrypt.hash(password, salt);
     newAccount.password = hash;
     const savedAccount = await newAccount.save();
-
     res.json({
       msg: "inscription réussite",
-      user: savedAccount
+      user: savedAccount,
     });
   } catch (error) {
     console.error(error);

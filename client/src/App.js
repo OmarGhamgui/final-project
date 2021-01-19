@@ -6,8 +6,10 @@ import { Router, Route } from "react-router";
 import "./App.css";
 import Footer from "./Components/Footer";
 import LoginPage from "./Components/Loginpage";
-import Profile from "./Components/Profile";
+
 import { history } from "./history";
+import routes from "./Routes/routes";
+import PrivateRoute from "./Routes/PrivateRoute";
 function App() {
   return (
     <div className="App">
@@ -16,7 +18,14 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/profile" component={Profile} />
+        {routes.map((route, idx) => (
+          <PrivateRoute
+            key={idx}
+            exact={route.exact}
+            path={route.path}
+            component={route.component}
+          />
+        ))}{" "}
       </Router>
       <Footer />
     </div>

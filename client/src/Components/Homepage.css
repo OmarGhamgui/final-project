@@ -12,6 +12,8 @@
     font-weight: 900;
 }
 .btn-newbtn {
+    display:flex;
+    margin:auto;
     color: #fff;
     background-color: #6e6e6e;
     border-color: #6e6e6e;

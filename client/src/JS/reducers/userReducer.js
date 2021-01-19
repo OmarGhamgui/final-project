@@ -20,22 +20,22 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
-  const checkLoggedIn = async () => {
-    let token = localStorage.getItem("auth-token");
-    if (token === null) {
-      localStorage.setItem("auth-token", "");
-      token = "";
-    }
-    const tokenRes = await axios.post("/user/tokenIsValid", null, {
-      headers: { "x-auth-token": token },
-    });
-    if (tokenRes.data) {
-      const userRes = await axios.get("/user", {
-        headers: { "x-auth-token": token },
-      });
-      if (userRes) return true;
-    }
-  };
+  // const checkLoggedIn = async () => {
+  //   let token = localStorage.getItem("auth-token");
+  //   if (token === null) {
+  //     localStorage.setItem("auth-token", "");
+  //     token = "";
+  //   }
+  //   /* const tokenRes = await axios.post("/user/tokenIsValid", null, {
+  //     headers: { "x-auth-token": token },
+  //   }); */
+    
+  //     const userRes = await axios.get("/user", {
+  //       headers: { "x-auth-token": token },
+  //     });
+  //     return userRes.data 
+    
+  // };
   switch (type) {
     case REGISTER_USER:
       return {
@@ -49,10 +49,8 @@ const userReducer = (state = initialState, { type, payload }) => {
         loading: false,
         user: payload.user,
       };
-
     case REGISTER_FAIL:
       cogoToast.error("Something went wrong ...");
-
       return {
         ...state,
         loading: false,
@@ -64,23 +62,19 @@ const userReducer = (state = initialState, { type, payload }) => {
         loading: true,
       };
     case LOGIN_SUCCESS:
-      if (checkLoggedIn());
       return {
         ...state,
         loading: false,
         token: payload.token,
         user: payload.user,
       };
-
     case LOGIN_FAIL:
       cogoToast.error("Vérifier votre email ou mot de passe");
-
       return {
         ...state,
         loading: false,
         errors: payload,
       };
-
     case LOGOUT_LOAD:
       return {
         ...state,
