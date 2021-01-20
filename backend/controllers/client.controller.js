@@ -3,12 +3,14 @@ const Client = require("../Model/Client");
 const config = require("config");
 const { updateClient, deleteClientById } = require("../services/client.services")
 exports.addClient = async (req, res) => {
+    const user = req.params.userId;
     const { firstName, lastName, fonction, company, email, phoneNumber } = req.body;
     try {
         const searchAccount = await Client.findOne({ email });
         if (searchAccount)
             return res.status(403).json({ msg: "account already exists" });
         const newAccount = new Client({
+            user,
             firstName,
             lastName,
             fonction,
@@ -69,6 +71,23 @@ exports.deleteClient = async (req, res) => {
             status: 200
         })
 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ errors: error.data });
+    }
+};
+
+exports.getClients = async (req, res) => {
+    const user = req.params.userId;
+    try {
+        const searchAccount = await Client.find({ user });
+        if (!searchAccount)
+            return res.status(403).json({ msg: "account already exists" });
+       
+        res.json({
+            msg: "get all clients ",
+            client: searchAccount,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ errors: error.data });
