@@ -6,8 +6,6 @@ const {
 const Router = express.Router();
 const { addClient, editClient, deleteClient, getClients }= require("../controllers/client.controller");
 
-
-//add client
 Router.post("/:userId", clientRules(), validator, addClient);
 Router.put("/:clientId", validator, editClient);
 Router.delete("/:clientId", validator, deleteClient);
