@@ -19,3 +19,9 @@ exports.validator = (req,res,next)=>{
     errors.isEmpty() ? next() : res.status(400).json({msg:errors.array()})
 }
 
+exports.clientRules =()=>[
+  check("firstName", "this field is required").notEmpty(),
+  check("lastName", "this field is required").notEmpty(),
+  check("email", "this should be a valid email").isEmail(),
+  check("email", "this field is required").notEmpty()
+]

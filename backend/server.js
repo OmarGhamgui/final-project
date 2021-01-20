@@ -1,12 +1,16 @@
 const express = require("express");
-
 const connectDb = require("./config/dbConnect");
 const user = require("./Routes/user");
+const client = require("./Routes/client")
 
 const app = express();
 app.use(express.json());
 connectDb();
+//app.use("/user", user);
+
 app.use("/user", user);
+
+app.use("/client", client);
 
 const PORT = process.env.PORT || 5000;
 
