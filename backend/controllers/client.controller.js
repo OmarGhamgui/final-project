@@ -6,7 +6,8 @@ exports.addClient = async (req, res) => {
     const user = req.params.userId;
     const { firstName, lastName, fonction, company, email, phoneNumber } = req.body;
     try {
-        const searchAccount = await Client.findOne({ email });
+        const searchAccount = await Client.find({ user }).findOne({ email });
+        
         if (searchAccount)
             return res.status(403).json({ msg: "account already exists" });
         const newAccount = new Client({
@@ -83,7 +84,7 @@ exports.getClients = async (req, res) => {
         const searchAccount = await Client.find({ user });
         if (!searchAccount)
             return res.status(403).json({ msg: "account already exists" });
-       
+
         res.json({
             msg: "get all clients ",
             client: searchAccount,
