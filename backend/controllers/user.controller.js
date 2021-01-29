@@ -66,3 +66,11 @@ exports.getCurrentUser = async (req, res) => {
     } else res.send(data);
   });
 };
+
+exports.updateUser = async (id, newUser) => {
+  return await User.findByIdAndUpdate({ _id: id }, {
+    $set: {
+      ...newUser
+    }
+  })
+}
